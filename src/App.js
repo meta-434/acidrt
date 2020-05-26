@@ -83,12 +83,12 @@ class App extends Component {
             <div className="app">
                 <Route path="/" render={routeProps => <Nav {...routeProps} />}/>
                 <main className="app-content">
-                    <Route exact path="/" component={Main} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/form" component={Form} />
-                    <Route path="/all-reports" component={ReportList} />
-                    <Route path="/dashboard" component={Dashboard} />
-                    <Route path="/report-display/:reportId?" component={ReportDisplay} />
+                    <Route exact path="/" render={props => <Main {...props} />}/>
+                    <Route path="/login" render={props => <Login {...props} />} />
+                    <Route path="/form" render={props => <Form {...props} />} />
+                    <Route path="/all-reports" render={props => <ReportList {...props} />} />
+                    <Route path="/dashboard" render={props => <Dashboard {...props} />} />
+                    <Route path="/report-display/:reportId?" render={props => <ReportDisplay {...props} />} />
 
                 </main>
             </div>

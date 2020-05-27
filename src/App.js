@@ -15,6 +15,7 @@ class App extends Component {
     state = {
         reports: [
             {
+                id: 0,
                 first: 'john',
                 last: 'doe',
                 email: 'email@email.com',
@@ -28,6 +29,7 @@ class App extends Component {
                 waterBody: 'James River'
             },
             {
+                id: 1,
                 date: "2020-01-01",
                 details: "take 4 lefts.",
                 email: "acyrush@gmail.com",
@@ -51,6 +53,7 @@ class App extends Component {
 
     componentDidMount() {
         this.handleGetErrors();
+        this.handleGetReports();
     }
 
     handleGetErrors() {
@@ -73,19 +76,24 @@ class App extends Component {
     };
 
     handlePostReport = (newReport) => {
-        console.log(newReport);
+        console.log({id: 3, ...newReport});
+
         const currentReports = this.state.reports;
         currentReports.push(newReport);
         this.setState({reports: currentReports});
     }
 
-    handleGetReports = () => {
+    handleGetReports = (id) => {
+        if (id) {
+            return this.state.reports[id];
+        }
         return this.state.reports;
     }
 
     handleDeleteReport = (reportId) => {
         const {reports} = this.state;
-        const filteredReports = reports.filter(report => report.report_id !== reportId);
+        const filteredReports = reports.filter(report => report.id !== reportId);
+        console.log('filteredReports', filteredReports);
         this.setState({reports: filteredReports});
     }
 

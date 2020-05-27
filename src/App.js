@@ -13,7 +13,36 @@ import {Route} from "react-router-dom";
 class App extends Component {
 
     state = {
-        reports: [],
+        reports: [
+            {
+                first: 'john',
+                last: 'doe',
+                email: 'email@email.com',
+                lat: 99.0021,
+                lng: 12.2341,
+                error: undefined,
+                date: '2020-02-02',
+                time: '12:01',
+                phone: '123-123-1234',
+                type: ["Suspicious discharge from the pipe into stream"],
+                waterBody: 'James River'
+            },
+            {
+                date: "2020-01-01",
+                details: "take 4 lefts.",
+                email: "acyrush@gmail.com",
+                error: undefined,
+                first: "Alexandre",
+                last: "Hapgood",
+                lat: 38.09802480089654,
+                lng: -78.4887256216315,
+                other: "lorem ipsum other details",
+                phone: "434-249-7488",
+                time: "12:34",
+                type: ["Suspicious discharge from pipe into stream", "Suspicious suds or other substance floating on water"],
+                waterBody: "oh so much water in the lake",
+            }
+        ],
         authToken: undefined,
         error: undefined,
         username: undefined,
@@ -32,6 +61,9 @@ class App extends Component {
         this.setState({authToken: undefined});
         sessionStorage.clear();
     }
+
+
+
     // crud methods here
     handlePostAuthenticate = ({ username, password }) => {
         this.setState({ authToken: username })
@@ -41,6 +73,7 @@ class App extends Component {
     };
 
     handlePostReport = (newReport) => {
+        console.log(newReport);
         const currentReports = this.state.reports;
         currentReports.push(newReport);
         this.setState({reports: currentReports});
@@ -77,6 +110,7 @@ class App extends Component {
         handleEditReport: this.handleEditReport,
         handleLogOut: this.handleLogOut,
         handleGetErrors: this.handleGetErrors,
+        handleLatLng: this.handleLatLng,
     }
     return(
         <AcidrtContext.Provider value={(context)}>
@@ -86,10 +120,9 @@ class App extends Component {
                     <Route exact path="/" render={props => <Main {...props} />}/>
                     <Route path="/login" render={props => <Login {...props} />} />
                     <Route path="/form" render={props => <Form {...props} />} />
-                    <Route path="/all-reports" render={props => <ReportList {...props} />} />
+                    <Route exact path="/all-reports" render={props => <ReportList {...props} />} />
                     <Route path="/dashboard" render={props => <Dashboard {...props} />} />
-                    <Route path="/report-display/:reportId?" render={props => <ReportDisplay {...props} />} />
-
+                    <Route path="/all-reports/:reportId" render={props => <ReportDisplay {...props} />} />
                 </main>
             </div>
         </AcidrtContext.Provider>

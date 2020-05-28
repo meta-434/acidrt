@@ -19,13 +19,13 @@ class App extends Component {
                 first: 'john',
                 last: 'doe',
                 email: 'email@email.com',
-                lat: 99.0021,
-                lng: 12.2341,
+                lat: 38.030425,
+                lng: -78.561065,
                 error: undefined,
                 date: '2020-02-02',
                 time: '12:01',
                 phone: '123-123-1234',
-                type: ["Suspicious discharge from the pipe into stream"],
+                type: ["Suspicious discharge from pipe into stream"],
                 waterBody: 'James River'
             },
             {

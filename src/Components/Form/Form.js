@@ -229,7 +229,7 @@ export default class Form extends Component {
                         <label htmlFor="6">Fish or other aquatic creatures appear to have died</label>
                         <br />
                         <input onChange={this.handleType} type="checkbox" id="7" name="7" value="other" />
-                        <label htmlFor="7">Other (please describe below</label>
+                        <label htmlFor="7">Other (please describe below)</label>
                         <br />
                         <br />
                         <label htmlFor="other-text">if other, enter details:</label>

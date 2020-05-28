@@ -115,6 +115,7 @@ export default class Dashboard extends Component {
             <section className={'charts'}>
                 <div className={'chart1'}>
                     <div className={'chart1-wrapper'}>
+                        <h3>Incident Frequency</h3>
                         <ResponsiveContainer width="99%" aspect={3}>
                             <BarChart
                                 data={dateData}
@@ -133,6 +134,7 @@ export default class Dashboard extends Component {
                     </div>
                 </div>
                 <div className={'chart2'}>
+                    <h3>Incident Types</h3>
                     <div className={'chart2-wrapper'}>
                         <ResponsiveContainer width="99%" aspect={3}>
                             <PieChart
@@ -149,6 +151,7 @@ export default class Dashboard extends Component {
                     <ReportList />
                 </div>
                 <div className={'marker-map'}>
+                    <h3>Incident Locations</h3>
                     <ReportMap markers={latLngData}/>
                 </div>
             </section>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ErrorDisplay from "../ErrorDisplay/ErrorDisplay";
 import MapComponent from "../Map/MapComponent";
 import AcidrtContext from "../../AcidrtContext";
+import {Link} from "react-router-dom";
 
 export default class Form extends Component {
 
@@ -19,17 +20,25 @@ export default class Form extends Component {
         details: undefined,
         date: undefined,
         time: undefined,
-        error: undefined,
+        error: 'please move pin to incident location',
     }
 
     handlePostReport = (e) => {
         e.preventDefault();
-        this.context.handlePostReport(this.state);
+        console.log('error', this.state.error);
+        if (this.state.type.length === 0) {
+            this.setState({error: 'please select an incident type'})
+        } else {
+            console.log('good type(s)', this.state.type);
+            this.context.handlePostReport(this.state);
+            this.setState({subRec: true})
+        }
+
     }
 
     handleLatLng = (lat, lng) => {
         console.log('called');
-        this.setState({lat, lng});
+        this.setState({lat, lng, error: ''});
     }
 
     handleFirstName = (e) => {
@@ -49,10 +58,11 @@ export default class Form extends Component {
 
     handlePhone = (e) => {
         const phone = e.target.value;
-
+        console.log('phone type', typeof phone)
         const regExp = /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/;
         const isValid = phone.match(regExp);
-        if (!isValid) {
+
+        if (!new RegExp(regExp).test(phone)) {
             this.setState({error: 'phone must be xxx-xxx-xxxx'})
         }
         this.setState({phone: e.target.value, error: undefined}, () => console.log(this.state.phone, this.state.error))
@@ -73,7 +83,8 @@ export default class Form extends Component {
             this.setState({type: currType})
         }
 
-         console.log(this.state.type);
+        this.setState({error: ''})
+         // console.log(this.state.type);
 
     }
 
@@ -98,7 +109,7 @@ export default class Form extends Component {
     }
 
     handleTime = (e) => {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         this.setState({time: e.target.value})
     }
 
@@ -111,9 +122,11 @@ export default class Form extends Component {
     render(){
         return(
             <>
+
                 <section>
                     <header>
                         <h3>Illicit Discharge Report</h3>
+                        <h4>Fields marked with * are required</h4>
                     </header>
                 </section>
                 <section className={'error-section'}>
@@ -123,14 +136,22 @@ export default class Form extends Component {
                             : ''
                     }
                 </section>
+                {(!!this.state.subRec)
+                    ? (
+                        <div>
+                            <h4>Submission Received</h4>
+                            <Link to={'/'}>Go Home</Link>
+                        </div>)
+                    :
                 <section className={'form-section'}>
                     <form
                         className={'react-form'}
                         onSubmit={this.handlePostReport}
                     >
-                        <label htmlFor='first-name'>first name: </label>
+                        <label htmlFor='first-name'>first name: * </label>
                         <br />
                         <input
+                            required
                             type="text"
                             id="first-name"
                             name="first-name"
@@ -142,9 +163,10 @@ export default class Form extends Component {
                             aria-describedby="error-box"
                         />
                         <br />
-                        <label htmlFor='last-name'>last name: </label>
+                        <label htmlFor='last-name'>last name: * </label>
                         <br />
                         <input
+                            required
                             type="text"
                             id="last-name"
                             name="last-name"
@@ -156,9 +178,10 @@ export default class Form extends Component {
                             aria-describedby="error-box"
                         />
                         <br />
-                        <label htmlFor='email'>email: </label>
+                        <label htmlFor='email'>email: * </label>
                         <br />
                         <input
+                            required
                             type="email"
                             id="email"
                             name="email"
@@ -172,15 +195,18 @@ export default class Form extends Component {
                             aria-describedby="error-box"
                         />
                         <br />
-                        <label htmlFor='phone'>phone number: </label>
+                        <label htmlFor='phone'>phone number: * </label>
+                        <br />
+                        <label>enter in 'xxx-xxx-xxxx' format</label>
                         <br />
                         <input
+                            required
                             type="tel"
                             id="phone"
                             name="phone"
                             className="phone"
                             onChange={this.handlePhone}
-                            placeholder={'enter phone'}
+                            placeholder={'xxx-xxx-xxxx'}
                             title={'must be in format xxx-xxx-xxxx'}
                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                             aria-label="password"
@@ -188,9 +214,10 @@ export default class Form extends Component {
                             aria-describedby="error-box"
                         />
                         <br />
-                        <label htmlFor={'map-latlng'}>Discharge Location</label>
+                        <label htmlFor={'map-latlng'}>Discharge Location: * </label>
                         <br />
                         <input
+                            required
                             placeholder={'move pin to incident location'}
                             defaultValue={ (this.state.lat && this.state.lng)
                                 ?`${
@@ -209,6 +236,8 @@ export default class Form extends Component {
                             aria-describedby={'error-box'}
                         />
                         <MapComponent updateLatLng={(lat, lng) => this.handleLatLng(lat, lng)}/>
+                        <br />
+                        <label>Incident Type: * </label>
                         <br />
                         <input onChange={this.handleType} type="checkbox" id="1" name="1" value="Dumping down a storm drain" />
                         <label htmlFor="1">Dumping down a storm drain</label>
@@ -273,9 +302,10 @@ export default class Form extends Component {
                             aria-describedby="error-box"
                         />
                         <br />
-                        <label htmlFor={'date'}>Enter the DATE of the incident</label>
+                        <label htmlFor={'date'}>Enter the DATE of the incident *</label>
                         <br />
                         <input
+                            required
                             type={'date'}
                             id={'date'}
                             className={'date'}
@@ -305,9 +335,9 @@ export default class Form extends Component {
                         </button>
                     </form>
                     <section className="error-box" id="error-box" aria-live="assertive">
-                        {/** enter new validation message logic**/}
+                        {(this.state.error) ? ('error: ' + this.state.error) : ''}
                     </section>
-                </section>
+                </section> }
 
             </>
         );

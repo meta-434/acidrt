@@ -6,10 +6,6 @@ export default class ReportList extends Component {
 
     static contextType = AcidrtContext
 
-    componentDidMount() {
-        console.log(this.context.reports);
-    }
-
     render(){
         const { reports } = this.context;
         return(

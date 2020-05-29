@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportList renders correctly 1`] = `
+Array [
+  <section>
+    <header>
+      <h3>
+        All Reports
+      </h3>
+    </header>
+  </section>,
+  <section>
+    <div
+      className="reportList-item"
+    >
+      <p
+        id={0}
+      >
+        report for incident at 12:01 on 2020-02-02 by john doe
+      </p>
+      <p>
+        <a
+          href="/all-reports/0"
+          onClick={[Function]}
+        >
+          view this report's details
+        </a>
+      </p>
+    </div>
+    <div
+      className="reportList-item"
+    >
+      <p
+        id={1}
+      >
+        report for incident at 12:34 on 2020-01-01 by Alexandre Hapgood
+      </p>
+      <p>
+        <a
+          href="/all-reports/1"
+          onClick={[Function]}
+        >
+          view this report's details
+        </a>
+      </p>
+    </div>
+  </section>,
+]
+`;

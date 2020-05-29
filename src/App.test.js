@@ -1,6 +1,14 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import App from './App';
+import renderer from 'react-test-renderer'
+import { BrowserRouter } from "react-router-dom";
+import Nav from "./Components/Nav/Nav";
 
-test('renders learn react link', () => {
+test('renders the app landing page', () => {
+    const tree = renderer
+        .create(<BrowserRouter><App /></BrowserRouter>)
+        .toJSON();
+
+    // console.log(tree);
+    expect(tree).toMatchSnapshot();
 });

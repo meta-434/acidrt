@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/acidrt.iml" filepath="$PROJECT_DIR$/.idea/acidrt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../acidrt-api/.idea/express-boilerplate.iml" filepath="$PROJECT_DIR$/../acidrt-api/.idea/express-boilerplate.iml" />
     </modules>
   </component>
 </project>

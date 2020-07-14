@@ -22,9 +22,11 @@ export default class Dashboard extends Component {
     }
 
     formatData = (reports) => {
-        this.formatDate(reports);
-        this.formatType(reports);
-        this.formatLatLng(reports);
+        if (!!reports) {
+            this.formatDate(reports);
+            this.formatType(reports);
+            this.formatLatLng(reports);
+        } else {console.log('no valid reports @ formatDate')}
     }
 
     formatDate = (reports) => {
@@ -32,26 +34,30 @@ export default class Dashboard extends Component {
         const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         const monthsName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        reports.forEach(report => {
-            const mo = Number(report.date.slice(5, 7));
-            const yr = Number(report.date.slice(0, 4));
+        if (reports !== undefined) {
+            reports.forEach(report => {
+                const mo = Number(report.date.slice(5, 7));
+                const yr = Number(report.date.slice(0, 4));
 
-            if (Number(report.date.slice(0, 4)) === 2020) {
-                monthsCount[mo - 1] += 1;
-            } else {
-                console.log('bad yr', yr);
-            }
-        })
-
-        monthsCount.forEach((month, idx) => {
-            dateData.push(
-                {
-                    month: monthsName[idx],
-                    count: month,
+                if (Number(report.date.slice(0, 4)) === 2020) {
+                    monthsCount[mo - 1] += 1;
+                } else {
+                    console.log('bad yr', yr);
                 }
-            )
-        })
-        this.setState({dateData})
+            })
+
+            monthsCount.forEach((month, idx) => {
+                dateData.push(
+                    {
+                        month: monthsName[idx],
+                        count: month,
+                    }
+                )
+            })
+            this.setState({dateData})
+        } else {
+            console.log(`no valid reports`);
+        }
     }
 
     formatType = (reports) => {

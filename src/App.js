@@ -13,38 +13,7 @@ import {Route} from "react-router-dom";
 class App extends Component {
 
     state = {
-        reports: [
-            {
-                id: 0,
-                first: 'john',
-                last: 'doe',
-                email: 'email@email.com',
-                lat: 38.030425,
-                lng: -78.561065,
-                error: undefined,
-                date: '2020-02-02',
-                time: '12:01',
-                phone: '123-123-1234',
-                type: ["Suspicious discharge from pipe into stream"],
-                waterBody: 'James River'
-            },
-            {
-                id: 1,
-                date: "2020-01-01",
-                details: "take 4 lefts.",
-                email: "acyrush@gmail.com",
-                error: undefined,
-                first: "Alexandre",
-                last: "Hapgood",
-                lat: 38.09802480089654,
-                lng: -78.4887256216315,
-                other: "lorem ipsum other details",
-                phone: "434-249-7488",
-                time: "12:34",
-                type: ["Suspicious discharge from pipe into stream", "Suspicious suds or other substance floating on water"],
-                waterBody: "oh so much water in the lake",
-            }
-        ],
+        reports: [],
         authToken: undefined,
         error: undefined,
         username: undefined,
@@ -69,10 +38,36 @@ class App extends Component {
 
     // crud methods here
     handlePostAuthenticate = ({ username, password }) => {
-        this.setState({ authToken: username })
-        sessionStorage.setItem('access-token', 'abc');
-        sessionStorage.setItem('username', username);
-        this.handleGetReports();
+        fetch(process.env.REACT_APP_SERVER_URL + `/authenticate`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password,
+            }),
+        })
+            .then((result) => {
+                return result.json();
+            })
+            .then((resJson) => {
+                console.log('hello');
+                this.setState({ error: resJson });
+                if (!!resJson.token) {
+                    this.setState({ authToken: resJson.token, username });
+                    sessionStorage.setItem("access-token", this.state.authToken);
+                    sessionStorage.setItem("username", username);
+                    this.handleGetReports();
+                } else {
+                    throw new Error(
+                        " error in authenticating. check username and password. "
+                    );
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
 
     handlePostReport = (newReport) => {
@@ -83,18 +78,72 @@ class App extends Component {
         this.setState({reports: currentReports});
     }
 
-    handleGetReports = (id) => {
-        if (id) {
-            return this.state.reports[id];
-        }
-        return this.state.reports;
+    handleGetUniqueReport = (id) => {
+        fetch(process.env.REACT_APP_SERVER_URL + `/api/reports/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "access-token": `${
+                    this.state.authToken || sessionStorage[`access-token`]
+                }`,
+            },
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.success && responseJson.success === false) {
+                    throw new Error(`error in getting report ${id}`);
+                } else {
+                    return responseJson;
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                this.setState({ error });
+            });
+    }
+
+    handleGetReports = () => {
+        fetch(process.env.REACT_APP_SERVER_URL + `/api/reports`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "access-token": `${
+                    this.state.authToken || sessionStorage[`access-token`]
+                }`,
+            },
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.success && responseJson.success === false) {
+                    throw new Error("error in getting reports");
+                } else {
+                    this.setState({
+                        reports: responseJson,
+                    });
+                }
+            })
+            .then(() => console.log('state @ post getReports()', this.state))
+            .catch((error) => {
+                console.error(error);
+                this.setState({ error });
+            });
     }
 
     handleDeleteReport = (reportId) => {
-        const {reports} = this.state;
-        const filteredReports = reports.filter(report => report.id !== reportId);
-        console.log('filteredReports', filteredReports);
-        this.setState({reports: filteredReports});
+        fetch(process.env.REACT_APP_SERVER_URL + `/api/reports/${reportId}`, {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json",
+                "access-token": `${
+                    this.state.authToken || sessionStorage[`access-token`]
+                }`,
+            },
+        })
+            .then((res) => this.handleGetReports())
+            .catch((error) => {
+                console.error(error);
+                this.setState({ error });
+            });
     }
 
     handleEditReport = (reportId, updatedReport) => {

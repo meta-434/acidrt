@@ -30,20 +30,19 @@ export class MapComponent extends Component {
         const containerStyle = {position:'relative', display: 'block', width: '50vh', height:'50vh'}
 
         return(
-                // <Map
-                //     containerStyle={containerStyle}
-                //     style={{width: '100%', height: '100%', display: 'block', position: 'relative', overflowY: 'hidden'}}
-                //     google={this.props.google}
-                //     initialCenter={ { lat: 38.028, lng: -78.5635 } }
-                //     zoom = { 9 }
-                // >
-                //     <Marker
-                //         draggable={true}
-                //         onDragend={(t, map, coord) => this.onMarkerDragEnd(coord)}
-                //     />
-                //
-                // </Map>
-            <p>testing</p>
+                <Map
+                    containerStyle={containerStyle}
+                    style={{width: '100%', height: '100%', display: 'block', position: 'relative', overflowY: 'hidden'}}
+                    google={this.props.google}
+                    initialCenter={ { lat: 38.028, lng: -78.5635 } }
+                    zoom = { 9 }
+                >
+                    <Marker
+                        draggable={true}
+                        onDragend={(t, map, coord) => this.onMarkerDragEnd(coord)}
+                    />
+
+                </Map>
         );
     }
 };

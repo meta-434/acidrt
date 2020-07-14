@@ -7,11 +7,12 @@ export class MapComponent extends Component {
     static contextType = AcidrtContext;
 
     state={
-        lat: 38.028,
-        lng: -78.5635
+
     }
 
+
     render() {
+        console.log('maaaa', this.props);
         const containerStyle = {position:'relative', display: 'block', width: '50vh', height:'50vh'}
         const { markers } = this.props;
         return(

@@ -23,11 +23,17 @@ class Login extends Component {
         this.validatePassword(this.state.password);
     }
 
-    handlePostSubmit = (e) => {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (!!this.context.authToken && !!this.context.reports) {
+            //this.context.clearError();
+            this.props.history.push('/dashboard');
+        }
+    }
+
+    handlePostSubmit = async (e) => {
         console.log('login being used?')
         e.preventDefault();
-        this.context.handlePostAuthenticate(this.state);
-        this.props.history.push('/dashboard');
+        await this.context.handlePostAuthenticate(this.state);
     }
 
     handleUsername = (e) => {

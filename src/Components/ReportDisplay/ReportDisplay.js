@@ -10,7 +10,7 @@ export default class ReportDisplay extends Component {
     }
 
     componentDidMount() {
-        this.setState({uniqueReport: this.context.reports[parseInt(this.props.match.params.reportId, 10)]})
+        this.context.handleGetUniqueReport([parseInt(this.props.match.params.reportId, 10)])
     }
 
     handleDelete = (reportId) => {
@@ -19,10 +19,10 @@ export default class ReportDisplay extends Component {
     }
 
     render(){
-        console.log(this.state.uniqueReport);
+        console.log('unique report: ', this.state.uniqueReport);
         if (!!this.state.uniqueReport) {
-            const {first, last, email, phone, lat, lng, type, details, other, time, date, waterBody, id} = this.state.uniqueReport;
-            console.log(type.forEach(el => console.log(el)));
+            const {report_first, last, email, phone, lat, lng, report_type, details, other, time, date, waterBody, id} = this.state.uniqueReport;
+            console.log(report_type.forEach(el => console.log(el)));
             return (
                 <div>
                     <section>
@@ -31,10 +31,10 @@ export default class ReportDisplay extends Component {
                     <section>
                         <p>id: {id}</p>
                         <p>Report for incident at lat: {lat} lng: {lng}</p>
-                        <div id={'incident-map'}>Incident Type(s): <ul>{type.map((el, idx) => <li key={idx}>{el}</li>)}</ul></div>
+                        <div id={'incident-map'}>Incident Type(s): <ul>{report_type.map((el, idx) => <li key={idx}>{el}</li>)}</ul></div>
                         <p>if other, describe type: {other || 'no -other- details'}</p>
                         <p>{(waterBody) ? ('Body of water affected: ' + waterBody) : ('')}</p>
-                        <p>Report Submitted By: {first + " " + last}</p>
+                        <p>Report Submitted By: {report_first + " " + last}</p>
                         <p>Submitter Contact info: {email}, {phone}</p>
                         <p>incident occurred on {date} at {time}</p>
                         <p>extra details: {details}</p>

@@ -17,8 +17,9 @@ export default class Dashboard extends Component {
     }
 
     componentDidMount() {
-        const reports = this.context.handleGetReports();
+        const reports = this.context.reports;
         this.setState({reports}, () => this.formatData(reports))
+        console.log('eeeeeeee', this.state);
     }
 
     formatData = (reports) => {
@@ -36,10 +37,10 @@ export default class Dashboard extends Component {
 
         if (reports !== undefined) {
             reports.forEach(report => {
-                const mo = Number(report.date.slice(5, 7));
-                const yr = Number(report.date.slice(0, 4));
+                const mo = Number(report.report_date.slice(5, 7));
+                const yr = Number(report.report_date.slice(0, 4));
 
-                if (Number(report.date.slice(0, 4)) === 2020) {
+                if (Number(report.report_date.slice(0, 4)) === 2020) {
                     monthsCount[mo - 1] += 1;
                 } else {
                     console.log('bad yr', yr);
@@ -99,12 +100,12 @@ export default class Dashboard extends Component {
         const latLngData = [];
         console.log(reports);
         reports.forEach((report, idx) => {
-            const info = `Report id ${report.id} by ${report.first + ' ' + report.last}`
+            const info = `Report id ${report.report_id} by ${report.report_first + ' ' + report.report_last}`
             latLngData.push(
                 {
-                    info: info,
-                    lat: report.lat,
-                    lng: report.lng,
+                    info: info || '',
+                    lat: report.report_lat,
+                    lng: report.report_lng,
                 }
             )
         })
@@ -116,7 +117,7 @@ export default class Dashboard extends Component {
         const dateData = this.state.dateData;
         const typeData = this.state.typeData;
         const latLngData = this.state.latLngData;
-
+        console.log('lldata', latLngData);
         return(
             <section className={'charts'}>
                 <div className={'chart1'}>

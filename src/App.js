@@ -34,9 +34,6 @@ class App extends Component {
         sessionStorage.clear();
     }
 
-
-
-    // crud methods here
     handlePostAuthenticate = ({ username, password }) => {
         fetch(process.env.REACT_APP_SERVER_URL + `/authenticate`, {
             method: "post",
@@ -52,13 +49,11 @@ class App extends Component {
                 return result.json();
             })
             .then((resJson) => {
-                console.log('hello');
                 this.setState({ error: resJson });
                 if (!!resJson.token) {
                     this.setState({ authToken: resJson.token, username });
-                    sessionStorage.setItem("access-token", this.state.authToken);
+                    sessionStorage.setItem("access-token", resJson.token);
                     sessionStorage.setItem("username", username);
-                    this.handleGetReports();
                 } else {
                     throw new Error(
                         " error in authenticating. check username and password. "
@@ -163,6 +158,7 @@ class App extends Component {
         handlePostAuthenticate: this.handlePostAuthenticate,
         handlePostReport: this.handlePostReport,
         handleGetReports: this.handleGetReports,
+        handleGetUniqueReport: this.handleGetUniqueReport,
         handleDeleteReport: this.handleDeleteReport,
         handleEditReport: this.handleEditReport,
         handleLogOut: this.handleLogOut,

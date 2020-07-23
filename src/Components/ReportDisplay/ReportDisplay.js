@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ErrorDisplay from "../ErrorDisplay/ErrorDisplay";
 import AcidrtContext from "../../AcidrtContext";
 
 export default class ReportDisplay extends Component {
@@ -7,10 +8,15 @@ export default class ReportDisplay extends Component {
 
     state = {
         uniqueReport: undefined,
+        error: undefined,
     }
 
     componentDidMount() {
-        this.context.handleGetUniqueReport([parseInt(this.props.match.params.reportId, 10)])
+        const srcId = parseInt(this.props.match.params.reportId, 10);
+        console.log('searching for report: ', srcId);
+        const srcResult = this.context.reports.filter(report => report.id === srcId)
+        console.log('search results', srcResult);
+        if (srcResult.length === 1) this.setState({uniqueReport: srcResult[0]})
     }
 
     handleDelete = (reportId) => {
@@ -19,26 +25,31 @@ export default class ReportDisplay extends Component {
     }
 
     render(){
-        console.log('unique report: ', this.state.uniqueReport);
+        const rep = this.state.uniqueReport;
         if (!!this.state.uniqueReport) {
-            const {report_first, last, email, phone, lat, lng, report_type, details, other, time, date, waterBody, id} = this.state.uniqueReport;
-            console.log(report_type.forEach(el => console.log(el)));
             return (
                 <div>
+                    {!!this.context.error ? <ErrorDisplay /> : ""}
                     <section>
                         <h2>Report Details</h2>
                     </section>
                     <section>
-                        <p>id: {id}</p>
-                        <p>Report for incident at lat: {lat} lng: {lng}</p>
-                        <div id={'incident-map'}>Incident Type(s): <ul>{report_type.map((el, idx) => <li key={idx}>{el}</li>)}</ul></div>
-                        <p>if other, describe type: {other || 'no -other- details'}</p>
-                        <p>{(waterBody) ? ('Body of water affected: ' + waterBody) : ('')}</p>
-                        <p>Report Submitted By: {report_first + " " + last}</p>
-                        <p>Submitter Contact info: {email}, {phone}</p>
-                        <p>incident occurred on {date} at {time}</p>
-                        <p>extra details: {details}</p>
-                        <button onClick={() => this.handleDelete(id)}>Resolve</button>
+                        <p>id: {rep.id}</p>
+                        <p>Report for incident at lat: {rep.report_lat} lng: {rep.report_lng}</p>
+                        <div id={'incident-map'}>
+                            Incident Type(s):
+                            {
+                                (rep.report_type.length > 1) ? (<p>{rep.report_type}</p>) : (<ul>{rep.report_type.map((el, idx) => <li key={idx}>{el}</li>)}</ul>)
+                            }
+
+                        </div>
+                        <p>if other, describe type: {rep.report_other || 'no -other- details'}</p>
+                        <p>{(rep.report_waterbody) ? ('Body of water affected: ' + rep.report_waterbody) : ('')}</p>
+                        <p>Report Submitted By: {rep.report_first + " " + rep.report_last}</p>
+                        <p>Submitter Contact info: {rep.report_email}, {rep.report_phone}</p>
+                        <p>incident occurred on {rep.report_date} at {rep.report_time}</p>
+                        <p>extra details, if any: {rep.report_details}</p>
+                        <button onClick={() => this.handleDelete(rep.id)}>Resolve (delete)</button>
                         <button>Edit</button>
                     </section>
 

@@ -21,7 +21,7 @@ export default class ReportList extends Component {
                         (!!reports)
                         ? (reports.map((report, idx) => {
                                 return (
-                                    <div className='reportList-item' key={idx}>
+                                    <div className='reportList-item' key={idx + 1}>
                                         <p id={idx}>{'report for incident at ' + report.report_time + ' on ' + report.report_date + ' by ' + report.report_first + " " + report.report_last}</p>
                                         <p><Link to={`/all-reports/${idx}`}>view this report's details</Link></p>
                                     </div>

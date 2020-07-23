@@ -22,12 +22,15 @@ class App extends Component {
 
     componentDidMount() {
         this.handleGetErrors();
-        this.handleGetReports();
     }
 
     handleGetErrors() {
         this.setState({error: this.context.error})
     }
+
+    clearError = () => {
+        this.setState({ error: undefined });
+    };
 
     handleLogOut = () => {
         this.setState({authToken: undefined});
@@ -54,6 +57,7 @@ class App extends Component {
                     this.setState({ authToken: resJson.token, username });
                     sessionStorage.setItem("access-token", resJson.token);
                     sessionStorage.setItem("username", username);
+                    this.handleGetReports();
                 } else {
                     throw new Error(
                         " error in authenticating. check username and password. "
@@ -66,11 +70,15 @@ class App extends Component {
     };
 
     handlePostReport = (newReport) => {
-        console.log({id: 3, ...newReport});
-
-        const currentReports = this.state.reports;
-        currentReports.push(newReport);
-        this.setState({reports: currentReports});
+        fetch(process.env.REACT_APP_SERVER_URL + `/submit/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newReport)
+        })
+            .then( res => res.json())
+            .then( resJson => console.log(resJson));
     }
 
     handleGetUniqueReport = (id) => {
@@ -109,6 +117,7 @@ class App extends Component {
         })
             .then((response) => response.json())
             .then((responseJson) => {
+                console.log('handleGetReports responseJson', responseJson);
                 if (responseJson.success && responseJson.success === false) {
                     throw new Error("error in getting reports");
                 } else {
@@ -164,6 +173,7 @@ class App extends Component {
         handleLogOut: this.handleLogOut,
         handleGetErrors: this.handleGetErrors,
         handleLatLng: this.handleLatLng,
+        clearError: this.clearError,
     }
     return(
         <AcidrtContext.Provider value={(context)}>

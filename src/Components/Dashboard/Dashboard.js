@@ -17,9 +17,9 @@ export default class Dashboard extends Component {
     }
 
     componentDidMount() {
+        this.context.handleGetReports();
         const reports = this.context.reports;
         this.setState({reports}, () => this.formatData(reports))
-        console.log('eeeeeeee', this.state);
     }
 
     formatData = (reports) => {
@@ -74,7 +74,7 @@ export default class Dashboard extends Component {
             'other'
         ];
         reports.forEach(report => {
-            const reportTypes = report.type;
+            const reportTypes = report.report_type.split(',');
             reportTypes.forEach((type, idx) => {
                 const typeNameIdx = typesName.indexOf(type);
                 if (typeNameIdx !== -1) {

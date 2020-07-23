@@ -25,14 +25,10 @@ export default class Form extends Component {
 
     handlePostReport = (e) => {
         e.preventDefault();
-        console.log('error', this.state.error);
-        if (this.state.type.length === 0) {
-            this.setState({error: 'please select an incident type'})
-        } else {
-            console.log('good type(s)', this.state.type);
-            this.context.handlePostReport(this.state);
-            this.setState({subRec: true})
-        }
+        this.context.handlePostReport({
+            report_first: this.state.first,
+            report_last: this.state.last,
+       })
 
     }
 
@@ -114,15 +110,13 @@ export default class Form extends Component {
     }
 
     checkIfSubmittable = () => {
-        console.log(!!this.state.lat && !!this.state.lng && !this.state.error);
-        console.log(!this.state.lng);
+        console.log(!(!!this.state.lat && !!this.state.lng && !this.state.error));
         return !(!!this.state.lat && !!this.state.lng && !this.state.error);
     }
 
     render(){
         return(
             <>
-
                 <section>
                     <header>
                         <h3>Illicit Discharge Report</h3>

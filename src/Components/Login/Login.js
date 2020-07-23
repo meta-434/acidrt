@@ -24,9 +24,10 @@ class Login extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (!!this.context.authToken && !!this.context.reports) {
-            //this.context.clearError();
-            this.props.history.push('/dashboard');
+        console.log('CDU authToken: ', this.context.authToken)
+        if (!!this.context.authToken) {
+            this.context.clearError();
+            this.props.history.push("/dashboard");
         }
     }
 
@@ -143,9 +144,9 @@ class Login extends Component {
                                 Submit
                             </button>
                             <section className="error-box" id="error-box" aria-live="assertive">
-                                {this.state.usernameValidation}
+                                {this.state.username !== undefined && this.state.usernameValidation}
                                 <br />
-                                {this.state.passwordValidation}
+                                {this.state.password !== undefined && this.state.passwordValidation}
                             </section>
                         </form>
                     </section>

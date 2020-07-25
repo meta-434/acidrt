@@ -20,6 +20,7 @@ export default class Form extends Component {
         details: undefined,
         date: undefined,
         time: undefined,
+        other: undefined,
         error: 'please move pin to incident location',
     }
 
@@ -28,6 +29,16 @@ export default class Form extends Component {
         this.context.handlePostReport({
             report_first: this.state.first,
             report_last: this.state.last,
+            report_email: this.state.email,
+            report_phone: this.state.phone,
+            report_lat: parseFloat(this.state.lat),
+            report_lng: parseFloat(this.state.lng),
+            report_date: this.state.date,
+            report_time: this.state.time,
+            report_type: this.state.type.join(),
+            report_waterbody: this.state.waterBody,
+            report_other: this.state.other,
+            report_details: this.state.details,
        })
 
     }

@@ -16,7 +16,7 @@ Array [
       <p
         id={0}
       >
-        report for incident at 12:01 on 2020-02-02 by john doe
+        report for incident at undefined on undefined by undefined undefined
       </p>
       <p>
         <a
@@ -33,7 +33,7 @@ Array [
       <p
         id={1}
       >
-        report for incident at 12:34 on 2020-01-01 by Alexandre Hapgood
+        report for incident at undefined on undefined by undefined undefined
       </p>
       <p>
         <a

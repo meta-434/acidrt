@@ -38,7 +38,7 @@ class App extends Component {
     }
 
     handlePostAuthenticate = ({ username, password }) => {
-        fetch(process.env.REACT_APP_SERVER_URL + `/authenticate`, {
+        return fetch(process.env.REACT_APP_SERVER_URL + `/authenticate`, {
             method: "post",
             headers: {
                 "Content-Type": "application/json",
@@ -70,7 +70,7 @@ class App extends Component {
     };
 
     handlePostReport = (newReport) => {
-        fetch(process.env.REACT_APP_SERVER_URL + `/submit/`, {
+        return fetch(process.env.REACT_APP_SERVER_URL + `/submit/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -82,7 +82,7 @@ class App extends Component {
     }
 
     handleGetUniqueReport = (id) => {
-        fetch(process.env.REACT_APP_SERVER_URL + `/api/reports/${id}`, {
+        return fetch(process.env.REACT_APP_SERVER_URL + `/api/reports/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -106,7 +106,7 @@ class App extends Component {
     }
 
     handleGetReports = () => {
-        fetch(process.env.REACT_APP_SERVER_URL + `/api/reports`, {
+        return fetch(process.env.REACT_APP_SERVER_URL + `/api/reports`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -134,7 +134,7 @@ class App extends Component {
     }
 
     handleDeleteReport = (reportId) => {
-        fetch(process.env.REACT_APP_SERVER_URL + `/api/reports/${reportId}`, {
+        return fetch(process.env.REACT_APP_SERVER_URL + `/api/reports/${reportId}`, {
             method: "delete",
             headers: {
                 "Content-Type": "application/json",

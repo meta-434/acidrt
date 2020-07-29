@@ -11,14 +11,13 @@ export default class Dashboard extends Component {
 
     constructor() {
         super();
-        this.state = {
-
-        }
+        this.state = {}
     }
 
     componentDidMount() {
         this.context.handleGetReports();
-        const reports = this.context.reports;
+        const reports = this.context.reports || [];
+        // callback can be replaced with one setState with all formatted data.
         this.setState({reports}, () => this.formatData(reports))
     }
 
@@ -34,8 +33,7 @@ export default class Dashboard extends Component {
         const dateData = [];
         const monthsCount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         const monthsName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-        if (reports !== undefined) {
+        if (reports !== undefined && Array.isArray(reports)) {
             reports.forEach(report => {
                 const mo = Number(report.report_date.slice(5, 7));
                 const yr = Number(report.report_date.slice(0, 4));
@@ -73,42 +71,52 @@ export default class Dashboard extends Component {
             'Fish or other aquatic creatures appear to have died',
             'other'
         ];
-        reports.forEach(report => {
-            const reportTypes = report.report_type.split(',');
-            reportTypes.forEach((type, idx) => {
-                const typeNameIdx = typesName.indexOf(type);
-                if (typeNameIdx !== -1) {
-                    console.log('hit!')
-                    typesCount[typeNameIdx] += 1;
-                }
+        if (reports !== undefined && Array.isArray(reports)) {
+            reports.forEach(report => {
+                const reportTypes = report.report_type.split(',');
+                reportTypes.forEach((type, idx) => {
+                    const typeNameIdx = typesName.indexOf(type);
+                    if (typeNameIdx !== -1) {
+                        typesCount[typeNameIdx] += 1;
+                    }
+                })
             })
-        })
-        console.log(typesCount);
-        typesCount.forEach((type, idx) => {
-            typeData.push(
-                {
-                    type: typesName[idx],
-                    count: type,
-                }
-            )
-        })
-        console.log(typeData);
+        } else {
+            console.log('no valid reports');
+        }
+        if (!!typesCount) {
+            typesCount.forEach((type, idx) => {
+                typeData.push(
+                    {
+                        type: typesName[idx],
+                        count: type,
+                    }
+                )
+            })
+        } else {
+            console.log('no valid types');
+        }
+
         this.setState({ typeData })
     }
 
     formatLatLng = (reports) => {
         const latLngData = [];
         console.log(reports);
-        reports.forEach((report, idx) => {
-            const info = `Report id ${report.report_id} by ${report.report_first + ' ' + report.report_last}`
-            latLngData.push(
-                {
-                    info: info || '',
-                    lat: report.report_lat,
-                    lng: report.report_lng,
-                }
-            )
-        })
+        if (reports !== undefined && Array.isArray(reports)) {
+            reports.forEach((report, idx) => {
+                const info = `Report id ${report.report_id} by ${report.report_first + ' ' + report.report_last}`
+                latLngData.push(
+                    {
+                        info: info || '',
+                        lat: report.report_lat,
+                        lng: report.report_lng,
+                    }
+                )
+            });
+        } else {
+            console.log('dashboard report loading error');
+        }
 
         this.setState({latLngData});
     }
@@ -117,7 +125,6 @@ export default class Dashboard extends Component {
         const dateData = this.state.dateData;
         const typeData = this.state.typeData;
         const latLngData = this.state.latLngData;
-        console.log('lldata', latLngData);
         return(
             <section className={'charts'}>
                 <div className={'chart1'}>

@@ -8,7 +8,6 @@ export default class ReportList extends Component {
 
     render(){
         const { reports } = this.context;
-        console.log('reports?', reports);
         return(
             <>
                 <section>

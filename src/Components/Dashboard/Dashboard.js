@@ -14,9 +14,10 @@ export default class Dashboard extends Component {
         this.state = {}
     }
 
-    componentDidMount() {
-        this.context.handleGetReports();
+    componentDidMount = async () => {
+        await this.context.handleGetReports();
         const reports = this.context.reports || [];
+
         // callback can be replaced with one setState with all formatted data.
         this.setState({reports}, () => this.formatData(reports))
     }
@@ -103,9 +104,9 @@ export default class Dashboard extends Component {
     formatLatLng = (reports) => {
         const latLngData = [];
         console.log(reports);
-        if (reports !== undefined && Array.isArray(reports)) {
+        if (reports !== undefined && reports.length !== 0) {
             reports.forEach((report, idx) => {
-                const info = `Report id ${report.report_id} by ${report.report_first + ' ' + report.report_last}`
+                const info = `Report id ${report.id} by ${report.report_first + ' ' + report.report_last}`
                 latLngData.push(
                     {
                         info: info || '',
@@ -125,6 +126,7 @@ export default class Dashboard extends Component {
         const dateData = this.state.dateData;
         const typeData = this.state.typeData;
         const latLngData = this.state.latLngData;
+        console.log('dashboard chart data', dateData, typeData, latLngData);
         return(
             <section className={'charts'}>
                 <div className={'chart1'}>

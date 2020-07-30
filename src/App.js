@@ -78,7 +78,7 @@ class App extends Component {
             body: JSON.stringify(newReport)
         })
             .then( res => res.json())
-            .then( resJson => console.log(resJson));
+            .catch((error) => {console.log('error: ', error)})
     }
 
     handleGetUniqueReport = (id) => {
@@ -87,7 +87,7 @@ class App extends Component {
             headers: {
                 "Content-Type": "application/json",
                 "access-token": `${
-                    this.state.authToken || sessionStorage[`access-token`]
+                    sessionStorage[`access-token`] || this.state.authToken
                 }`,
             },
         })
@@ -105,13 +105,13 @@ class App extends Component {
             });
     }
 
-    handleGetReports = () => {
+    handleGetReports = async () => {
         return fetch(process.env.REACT_APP_SERVER_URL + `/api/reports`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "access-token": `${
-                    this.state.authToken || sessionStorage[`access-token`]
+                    sessionStorage[`access-token`] || this.state.authToken 
                 }`,
             },
         })

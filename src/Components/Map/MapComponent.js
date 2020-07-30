@@ -48,5 +48,4 @@ export class MapComponent extends Component {
 };
 export default GoogleApiWrapper({
     apiKey: (process.env.REACT_APP_MAPS_KEY),
-    version: '3.36'
 })(MapComponent);

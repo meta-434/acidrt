@@ -6,13 +6,20 @@ export class MapComponent extends Component {
 
     static contextType = AcidrtContext;
 
-    state={
-
+    state = {
+        showingInfoWindow: false,
+        activeMarker: {},
+        selectedPlace: {},
     }
 
+    onMarkerClick = (props, marker, e) =>
+        this.setState({
+            selectedPlace: props,
+            activeMarker: marker,
+            showingInfoWindow: true
+        });
 
     render() {
-        console.log('maaaa', this.props);
         const containerStyle = {position:'relative', display: 'block', width: '50vh', height:'50vh'}
         const { markers } = this.props;
         return(
@@ -23,18 +30,22 @@ export class MapComponent extends Component {
                 initialCenter={ { lat: 38.028, lng: -78.5635 } }
                 zoom = { 9 }
             >
-                {
+                {this.props.markers
+                ?
                     markers.map((marker, idx) => {
-                        console.log('marker at', marker)
                         return (
-                            <Marker
-                                key={idx}
-                                name={`${marker.info}`}
-                                position={{ lat: `${marker.lat}`, lng: `${marker.lng}` }}
-                            />
+                                <Marker
+                                    key={idx}
+                                    name={`${marker.info}`}
+                                    position={{ lat: `${marker.lat}`, lng: `${marker.lng}` }}
+                                    onClick={this.onMarkerClick}
+                                />
                         )
                     })
-                }
+                : console.log('loading markers')}
+                <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
+                    <p>{this.state.selectedPlace.name || 'incident loading..'}</p>
+                </InfoWindow>
             </Map>
         );
     }

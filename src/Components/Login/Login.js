@@ -19,8 +19,7 @@ class Login extends Component {
     }
 
     componentDidMount() {
-        this.validateUsername(this.state.username);
-        this.validatePassword(this.state.password);
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -34,6 +33,8 @@ class Login extends Component {
     handlePostSubmit = async (e) => {
         console.log('login being used?')
         e.preventDefault();
+        this.validateUsername(this.state.username);
+        this.validatePassword(this.state.password);
         await this.context.handlePostAuthenticate(this.state);
     }
 

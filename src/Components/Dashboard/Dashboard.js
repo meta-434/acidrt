@@ -104,7 +104,7 @@ export default class Dashboard extends Component {
     formatLatLng = (reports) => {
         const latLngData = [];
         console.log(reports);
-        if (reports !== undefined && reports.length !== 0) {
+        if (reports !== undefined && Array.isArray(reports)) {
             reports.forEach((report, idx) => {
                 const info = `Report id ${report.id} by ${report.report_first + ' ' + report.report_last}`
                 latLngData.push(

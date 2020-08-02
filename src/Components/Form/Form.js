@@ -4,24 +4,51 @@ import MapComponent from "../Map/MapComponent";
 import AcidrtContext from "../../AcidrtContext";
 import {Link} from "react-router-dom";
 
+function populateType (currTypeState) {
+    if (!Array.isArray(currTypeState)) {
+        const newTypeState = currTypeState.split(',');
+        return newTypeState;
+    }
+    return currTypeState;
+}
+
 export default class Form extends Component {
 
     static contextType = AcidrtContext;
 
     state = {
-        first: undefined,
-        last: undefined,
-        email: undefined,
-        phone: undefined,
-        lat: undefined,
-        lng: undefined,
-        type: [],
-        waterBody: undefined,
-        details: undefined,
-        date: undefined,
-        time: undefined,
-        other: undefined,
+        first: (this.props.defaultVals && this.props.defaultVals.report_first) || undefined,
+        last: (this.props.defaultVals && this.props.defaultVals.report_last) || undefined,
+        email: (this.props.defaultVals && this.props.defaultVals.report_email) || undefined,
+        phone: (this.props.defaultVals && this.props.defaultVals.report_phone) || undefined,
+        lng: (this.props.defaultVals && this.props.defaultVals.report_lng) || undefined,
+        type: (this.props.defaultVals && populateType(this.props.defaultVals.report_type)) || [],
+        waterBody: (this.props.defaultVals && this.props.defaultVals.report_waterbody) || undefined,
+        details: (this.props.defaultVals && this.props.defaultVals.report_details) || undefined,
+        date: (this.props.defaultVals && this.props.defaultVals.report_date) || undefined,
+        time: (this.props.defaultVals && this.props.defaultVals.report_time) || undefined,
+        other: (this.props.defaultVals && this.props.defaultVals.report_other) || undefined,
         error: 'please move pin to incident location',
+    }
+
+    handleUpdateReport = (e) => {
+        e.preventDefault();
+        this.context.handleEditReport(this.props.defaultVals.id, {
+            report_first: this.state.first,
+            report_last: this.state.last,
+            report_email: this.state.email,
+            report_phone: this.state.phone,
+            report_lat: parseFloat(this.state.lat),
+            report_lng: parseFloat(this.state.lng),
+            report_date: this.state.date,
+            report_time: this.state.time,
+            report_type: this.state.type.join(),
+            report_waterbody: this.state.waterBody,
+            report_other: this.state.other,
+            report_details: this.state.details,
+        })
+            .then(result => result)
+            .then(() => this.props.toggleEdit());
     }
 
     handlePostReport = (e) => {
@@ -40,7 +67,6 @@ export default class Form extends Component {
             report_other: this.state.other,
             report_details: this.state.details,
        })
-
     }
 
     handleLatLng = (lat, lng) => {
@@ -65,7 +91,6 @@ export default class Form extends Component {
 
     handlePhone = (e) => {
         const phone = e.target.value;
-        console.log('phone type', typeof phone)
         const regExp = /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/;
         const isValid = phone.match(regExp);
 
@@ -76,23 +101,20 @@ export default class Form extends Component {
 
     }
 
-
-
     handleType = (e) => {
         const currType = this.state.type;
-
-        if (currType.includes(e.target.value)) {
-            const idx = currType.indexOf(e.target.value);
+        console.log(e.target.name);
+        if (currType.includes(e.target.name)) {
+            const idx = currType.indexOf(e.target.name);
             currType.splice(idx, 1);
             this.setState({type: currType})
         } else {
-            currType.push(e.target.value);
+            currType.push(e.target.name);
             this.setState({type: currType})
         }
 
         this.setState({error: ''})
          // console.log(this.state.type);
-
     }
 
     handleOtherText = (e) => {
@@ -121,7 +143,7 @@ export default class Form extends Component {
     }
 
     checkIfSubmittable = () => {
-        console.log(!(!!this.state.lat && !!this.state.lng && !this.state.error));
+        // console.log(!(!!this.state.lat && !!this.state.lng && !this.state.error));
         return !(!!this.state.lat && !!this.state.lng && !this.state.error);
     }
 
@@ -156,6 +178,7 @@ export default class Form extends Component {
                         <label htmlFor='first-name'>first name: * </label>
                         <br />
                         <input
+                            value={this.state.first}
                             required
                             type="text"
                             id="first-name"
@@ -171,6 +194,7 @@ export default class Form extends Component {
                         <label htmlFor='last-name'>last name: * </label>
                         <br />
                         <input
+                            value={this.state.last}
                             required
                             type="text"
                             id="last-name"
@@ -186,6 +210,7 @@ export default class Form extends Component {
                         <label htmlFor='email'>email: * </label>
                         <br />
                         <input
+                            value={this.state.email}
                             required
                             type="email"
                             id="email"
@@ -205,6 +230,7 @@ export default class Form extends Component {
                         <label>enter in 'xxx-xxx-xxxx' format</label>
                         <br />
                         <input
+                            value={this.state.phone}
                             required
                             type="tel"
                             id="phone"
@@ -223,8 +249,8 @@ export default class Form extends Component {
                         <br />
                         <input
                             required
-                            placeholder={'move pin to incident location'}
-                            defaultValue={ (this.state.lat && this.state.lng)
+                            value={`${this.state.lat}, ${this.state.lng}`}
+                            placeholder={ (this.state.lat && this.state.lng)
                                 ?`${
                                     Number.parseFloat(this.state.lat).toPrecision(6)
                                     + ', ' +
@@ -244,25 +270,25 @@ export default class Form extends Component {
                         <br />
                         <label>Incident Type: * </label>
                         <br />
-                        <input onChange={this.handleType} type="checkbox" id="1" name="1" value="Dumping down a storm drain" />
+                        <input onChange={this.handleType} type="checkbox" id="1" name="Dumping down a storm drain" defaultChecked={this.state.type.includes('Dumping down a storm drain')}/>
                         <label htmlFor="1">Dumping down a storm drain</label>
                         <br />
-                        <input onChange={this.handleType} type="checkbox" id="2" name="2" value="Suspicious discharge from pipe into stream" />
+                        <input onChange={this.handleType} type="checkbox" id="2" name="Suspicious discharge from pipe into stream" defaultChecked={this.state.type.includes('Suspicious discharge from pipe into stream')}/>
                         <label htmlFor="2">Suspicious discharge from pipe into stream</label>
                         <br />
-                        <input onChange={this.handleType} type="checkbox" id="3" name="3" value="Water in stream is an unusual color" />
+                        <input onChange={this.handleType} type="checkbox" id="3" name="Water in stream is an unusual color" defaultChecked={this.state.type.includes('Water in stream is an unusual color')}/>
                         <label htmlFor="3">Water in stream is an unusual color</label>
                         <br />
-                        <input onChange={this.handleType} type="checkbox" id="4" name="4" value="Water in stream smells strange" />
+                        <input onChange={this.handleType} type="checkbox" id="4" name="Water in stream smells strange" defaultChecked={this.state.type.includes('Water in stream smells strange')}/>
                         <label htmlFor="4">Water in stream smells strange</label>
                         <br />
-                        <input onChange={this.handleType} type="checkbox" id="5" name="5" value="Suspicious suds or other substance floating on water" />
+                        <input onChange={this.handleType} type="checkbox" id="5" name="Suspicious suds or other substance floating on water" defaultChecked={this.state.type.includes('Suspicious suds or other substance floating on water')}/>
                         <label htmlFor="5">Suspicious suds or other substance floating on water</label>
                         <br />
-                        <input onChange={this.handleType} type="checkbox" id="6" name="6" value="Fish or other aquatic creatures appear to have died" />
+                        <input onChange={this.handleType} type="checkbox" id="6" name="Fish or other aquatic creatures appear to have died" defaultChecked={this.state.type.includes('Fish or other aquatic creatures appear to have died')}/>
                         <label htmlFor="6">Fish or other aquatic creatures appear to have died</label>
                         <br />
-                        <input onChange={this.handleType} type="checkbox" id="7" name="7" value="other" />
+                        <input onChange={this.handleType} type="checkbox" id="7" name="other" defaultChecked={this.state.type.includes('other')}/>
                         <label htmlFor="7">Other (please describe below)</label>
                         <br />
                         <br />
@@ -274,6 +300,7 @@ export default class Form extends Component {
                             name="other-text"
                             className="other-text"
                             onChange={this.handleOtherText}
+                            defaultValue={this.state.other}
                             placeholder={'enter details'}
                             aria-label="other-text"
                             aria-required="false"
@@ -288,6 +315,7 @@ export default class Form extends Component {
                             name="water-body"
                             className="water-body"
                             onChange={this.handleWaterBody}
+                            defaultValue={this.state.waterBody}
                             placeholder={'enter water body details'}
                             aria-label="water-body"
                             aria-required="false"
@@ -301,6 +329,7 @@ export default class Form extends Component {
                             name="details"
                             className="details"
                             onChange={this.handleDetails}
+                            defaultValue={this.state.details}
                             placeholder={'enter extra details'}
                             aria-label="details"
                             aria-required="false"
@@ -315,6 +344,7 @@ export default class Form extends Component {
                             id={'date'}
                             className={'date'}
                             onChange={this.handleDate}
+                            defaultValue={this.state.date}
                             aria-label={'date'}
                             aria-required={"true"}
                             aria-describedby={'error-box'}
@@ -327,17 +357,25 @@ export default class Form extends Component {
                             id={'time'}
                             className={'time'}
                             onChange={this.handleTime}
+                            defaultValue={this.state.time}
                             aria-label={'time'}
                             aria-required={"true"}
                             aria-describedby={'error-box'}
                         />
                         <br />
-                        <button
-                            className="submit-button"
-                            type="submit"
-                            disabled={this.checkIfSubmittable()}>
-                            Submit
-                        </button>
+                        {
+                            (this.props.editMode)
+                            ? (<button onClick={(e) => this.handleUpdateReport(e)}>Done Editing</button>)
+                                :(
+                                    <button
+                                        className="submit-button"
+                                        type="submit"
+                                        disabled={this.checkIfSubmittable()}>
+                                        Submit
+                                    </button>
+                                )
+                        }
+
                     </form>
                     <section className="error-box" id="error-box" aria-live="assertive">
                         {(this.state.error) ? ('error: ' + this.state.error) : ''}

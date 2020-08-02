@@ -151,10 +151,30 @@ class App extends Component {
     }
 
     handleEditReport = (reportId, updatedReport) => {
-        const { reports } = this.state;
-        const filteredReports = reports.filter(report => report.report_id !== reportId);
-        filteredReports.push(updatedReport);
-        this.setState({reports: filteredReports});
+        console.log('HELLO', reportId, updatedReport);
+        return fetch(process.env.REACT_APP_SERVER_URL + `/api/reports/${reportId}`, {
+            method: 'put',
+            headers: {
+                "Content-Type": "application/json",
+                "access-token": `${
+                    this.state.authToken || sessionStorage[`access-token`]
+            }`
+            },
+            body: JSON.stringify(updatedReport)
+        })
+            .then(res => {
+                if (res && res.ok) {
+                    return res;
+                } else {
+                    throw new Error('Error in updating report');
+                }
+            })
+            .then(res => res.json())
+            .then(resJson => {
+                this.handleGetReports();
+                return resJson;
+            })
+            .catch((error) => console.log('error', error))
     }
 
   render() {

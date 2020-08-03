@@ -21,6 +21,7 @@ export default class Form extends Component {
         last: (this.props.defaultVals && this.props.defaultVals.report_last) || undefined,
         email: (this.props.defaultVals && this.props.defaultVals.report_email) || undefined,
         phone: (this.props.defaultVals && this.props.defaultVals.report_phone) || undefined,
+        lat: (this.props.defaultVals && this.props.defaultVals.report_lat) || undefined,
         lng: (this.props.defaultVals && this.props.defaultVals.report_lng) || undefined,
         type: (this.props.defaultVals && populateType(this.props.defaultVals.report_type)) || [],
         waterBody: (this.props.defaultVals && this.props.defaultVals.report_waterbody) || undefined,
@@ -71,7 +72,6 @@ export default class Form extends Component {
     }
 
     handleLatLng = (lat, lng) => {
-        console.log('called');
         this.setState({lat, lng, error: ''});
     }
 

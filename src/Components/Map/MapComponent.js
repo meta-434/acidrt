@@ -13,14 +13,9 @@ export class MapComponent extends Component {
     }
 
     onMarkerDragEnd = (coord) => {
-
-        console.log(coord);
-        console.log(this.props)
         const { latLng } = coord;
         const lat = latLng.lat();
         const lng = latLng.lng();
-
-        console.log('lat ', lat, ' lng ', lng, typeof this.props.updateLatLng);
         this.props.updateLatLng(lat, lng);
         this.setState({lat, lng});
 

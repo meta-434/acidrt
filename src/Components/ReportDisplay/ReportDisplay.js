@@ -11,16 +11,23 @@ export default class ReportDisplay extends Component {
         uniqueReport: undefined,
         error: undefined,
         editMode: false,
+        oldReports: undefined,
     }
 
     componentDidMount() {
         this.findUniqueReport();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.context.reports !== this.state.oldReports) {
+            this.findUniqueReport()
+        }
+    }
+
     findUniqueReport = () => {
         const srcId = parseInt(this.props.match.params.reportId, 10);
         const srcResult = this.context.reports.filter(report => report.id === srcId)
-        if (srcResult.length === 1) this.setState({uniqueReport: srcResult[0]})
+        if (srcResult.length === 1) this.setState({uniqueReport: srcResult[0], oldReports: this.context.reports})
     }
 
     handleDelete = (reportId) => {
@@ -46,6 +53,8 @@ export default class ReportDisplay extends Component {
                         <section>
                             <p>id: {rep.id}</p>
                             <p>Report for incident at lat: {rep.report_lat} lng: {rep.report_lng}</p>
+                            <p>Report Submitted By: {rep.report_first + " " + rep.report_last}</p>
+                            <p>incident occurred on {rep.report_date} at {rep.report_time}</p>
                             <div id={'incident-map'}>
                                 Incident Type(s):
                                 {
@@ -53,12 +62,11 @@ export default class ReportDisplay extends Component {
                                 }
 
                             </div>
-                            <p>if other, describe type: {rep.report_other || 'no -other- details'}</p>
-                            <p>{(rep.report_waterbody) ? ('Body of water affected: ' + rep.report_waterbody) : ('')}</p>
-                            <p>Report Submitted By: {rep.report_first + " " + rep.report_last}</p>
+
+                            <p>if other, describe type: {(rep.report_other !== 'undefined') ? (rep.report_other) : ('no -other- details given')}</p>
+                            <p>{(rep.report_waterbody) ? ('Body of water affected: ' + rep.report_waterbody) : ('no body of water given')}</p>
                             <p>Submitter Contact info: {rep.report_email}, {rep.report_phone}</p>
-                            <p>incident occurred on {rep.report_date} at {rep.report_time}</p>
-                            <p>extra details, if any: {rep.report_details}</p>
+                            <p>extra details, if any: {(rep.report_details !== "undefined") ? (rep.report_details) : ('no extra details given')}</p>
                             <button onClick={() => this.handleDelete(rep.id)}>Resolve (delete)</button>
                             <button onClick={this.toggleEdit}>Edit</button>
                         </section>

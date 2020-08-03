@@ -67,6 +67,7 @@ export default class Form extends Component {
             report_other: this.state.other,
             report_details: this.state.details,
        })
+            .then(() => this.props.history.push('/'))
     }
 
     handleLatLng = (lat, lng) => {

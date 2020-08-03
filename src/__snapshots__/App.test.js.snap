@@ -72,6 +72,17 @@ exports[`renders the app landing page 1`] = `
     className="app-content"
   >
     <main>
+      <p
+        className="login-note"
+      >
+        <em>
+          For testing authorized user functionality, use:
+          <br />
+          username: acps-employee 
+          <br />
+          password: ilovemywatershed
+        </em>
+      </p>
       <header
         role="banner"
       >
@@ -107,6 +118,13 @@ exports[`renders the app landing page 1`] = `
         </header>
         <p>
           To report a suspected illicit discharge, complete the online reporting form or call 434-202-4179. This is not an emergency response number. To report an emergency, please call 911.
+        </p>
+        <p>
+          <em>
+            <b>
+              REMEMBER: You don't need an account to submit a report!
+            </b>
+          </em>
         </p>
       </section>
       <section>

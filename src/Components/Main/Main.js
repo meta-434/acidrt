@@ -4,6 +4,7 @@ export default class Main extends Component {
     render(){
         return(
             <main>
+                <p className="login-note"><em>For testing authorized user functionality, use:<br />username: acps-employee <br />password: ilovemywatershed</em></p>
                 <header role="banner">
                     <h1>Albemarle County / Rivanna Stormwater</h1>
                     <h2>Illicit Discharge Reporting</h2>
@@ -21,6 +22,7 @@ export default class Main extends Component {
                         <h3>How to report a pollution problem?</h3>
                     </header>
                     <p>To report a suspected illicit discharge, complete the online reporting form or call 434-202-4179. This is not an emergency response number. To report an emergency, please call 911.</p>
+                    <p><em><b>REMEMBER: You don't need an account to submit a report!</b></em></p>
                 </section>
                 <section>
                     <header>

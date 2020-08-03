@@ -109,6 +109,8 @@ class Login extends Component {
                         <header>
                             login to access reports
                         </header>
+                        <p className="login-note"><em>For testing authorized user functionality, use:<br />username: acps-employee <br />password: ilovemywatershed</em></p>
+                        <p><em><b>REMEMBER: You don't need an account to submit a report!</b></em></p>
                     </section>
                     <section>
                         <form
@@ -128,7 +130,7 @@ class Login extends Component {
                             />
                             <label htmlFor='login-password'>password: </label>
                             <input
-                                type="text"
+                                type="password"
                                 id="login-password"
                                 name="login-password"
                                 className="login-password"

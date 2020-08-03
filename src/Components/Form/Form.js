@@ -93,12 +93,11 @@ export default class Form extends Component {
     handlePhone = (e) => {
         const phone = e.target.value;
         const regExp = /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/;
-        const isValid = phone.match(regExp);
 
         if (!new RegExp(regExp).test(phone)) {
             this.setState({error: 'phone must be xxx-xxx-xxxx'})
         }
-        this.setState({phone: e.target.value, error: undefined}, () => console.log(this.state.phone, this.state.error))
+        this.setState({phone: e.target.value, error: undefined})
 
     }
 

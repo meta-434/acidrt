@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BarChart, Bar,PieChart, Pie, Sector, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from "recharts";
+import {BarChart, Bar,PieChart, Pie, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from "recharts";
 import ReportMap from "../ReportDisplay/ReportMap";
 import AcidrtContext from "../../AcidrtContext";
 import './Dashboard.css'

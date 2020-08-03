@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 // import GoogleMapReact from 'google-map-react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
 import AcidrtContext from "../../AcidrtContext";
 
 export class MapComponent extends Component {

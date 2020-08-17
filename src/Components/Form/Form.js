@@ -29,7 +29,7 @@ export default class Form extends Component {
         date: (this.props.defaultVals && this.props.defaultVals.report_date) || undefined,
         time: (this.props.defaultVals && this.props.defaultVals.report_time) || undefined,
         other: (this.props.defaultVals && this.props.defaultVals.report_other) || undefined,
-        error: 'please move pin to incident location',
+        error: undefined,
     }
 
     handleUpdateReport = (e) => {
@@ -77,28 +77,39 @@ export default class Form extends Component {
 
     handleFirstName = (e) => {
         // console.log(e.target.value)
-        this.setState({first: e.target.value})
+        if (e.target.value === '') this.setState({first: e.target.value, error: 'first name missing'});
+        else {
+            this.setState({first: e.target.value, error: undefined})
+        }
     }
 
     handleLastName = (e) => {
-        // console.log(e.target.value)
-        this.setState({last: e.target.value})
+        if (e.target.value === '') this.setState({last: e.target.value, error: 'last name missing'});
+        else {
+            this.setState({last: e.target.value, error: undefined})
+        }
     }
 
     handleEmail = (e) => {
-        // console.log(e.target.value)
-        this.setState({email: e.target.value})
+        if (e.target.value === '') this.setState({email: e.target.value, error: 'email missing'});
+        else {
+            this.setState({email: e.target.value, error: undefined})
+        }
     }
 
     handlePhone = (e) => {
         const phone = e.target.value;
         const regExp = /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}/;
 
-        if (!new RegExp(regExp).test(phone)) {
-            this.setState({error: 'phone must be xxx-xxx-xxxx'})
+        if (phone === undefined || phone === '') {
+            this.setState({phone, error: 'phone missing'})
         }
-        this.setState({phone: e.target.value, error: undefined})
-
+        else if (!new RegExp(regExp).test(phone)) {
+            this.setState({phone, error: 'phone must be xxx-xxx-xxxx'})
+        }
+        else {
+            this.setState({phone, error: undefined})
+        }
     }
 
     handleType = (e) => {
@@ -144,7 +155,7 @@ export default class Form extends Component {
 
     checkIfSubmittable = () => {
         // console.log(!(!!this.state.lat && !!this.state.lng && !this.state.error));
-        return !(!!this.state.lat && !!this.state.lng && !this.state.error);
+        return !(!!this.state.lat && !!this.state.lng && this.state.first && this.state.last && this.state.email && this.state.type && !this.state.error);
     }
 
     render(){
@@ -378,7 +389,7 @@ export default class Form extends Component {
 
                     </form>
                     <section className="error-box" id="error-box" aria-live="assertive">
-                        {(this.state.error) ? ('error: ' + this.state.error) : ''}
+                        {(this.state.error && this.state.error !== undefined) ? ('error: ' + this.state.error) : ''}
                     </section>
                 </section> }
 

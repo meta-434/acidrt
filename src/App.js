@@ -9,6 +9,7 @@ import ReportList from './Components/ReportList/ReportList.js';
 import ReportDisplay from './Components/ReportDisplay/ReportDisplay.js';
 import AcidrtContext from "./AcidrtContext";
 import {Route} from "react-router-dom";
+import Footer from "./Components/Footer/Footer";
 
 class App extends Component {
 
@@ -207,6 +208,7 @@ class App extends Component {
                     <Route path="/dashboard" render={props => <Dashboard {...props} />} />
                     <Route path="/all-reports/:reportId" render={props => <ReportDisplay {...props} />} />
                 </main>
+                <Footer />
             </div>
         </AcidrtContext.Provider>
     );

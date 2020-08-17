@@ -126,13 +126,12 @@ export default class Dashboard extends Component {
         const dateData = this.state.dateData;
         const typeData = this.state.typeData;
         const latLngData = this.state.latLngData;
-        console.log('dashboard chart data', dateData, typeData, latLngData);
         return(
             <section className={'charts'}>
                 <div className={'chart1'}>
                     <div className={'chart1-wrapper'}>
                         <h3>Incident Frequency</h3>
-                        <ResponsiveContainer width="99%" aspect={3}>
+                        <ResponsiveContainer width="99%" aspect={2}>
                             <BarChart
                                 data={dateData}
                                 margin={{
@@ -140,11 +139,11 @@ export default class Dashboard extends Component {
                                 }}
                             >
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="month" interval={0}/>
+                                <XAxis dataKey="month" interval={1} angle="45"/>
                                 <YAxis />
                                 <Tooltip />
                                 <Legend />
-                                <Bar dataKey="count" fill="#8884d8" />
+                                <Bar dataKey="count" fill="#112A46" />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
@@ -152,12 +151,12 @@ export default class Dashboard extends Component {
                 <div className={'chart2'}>
                     <h3>Incident Types</h3>
                     <div className={'chart2-wrapper'}>
-                        <ResponsiveContainer width="99%" aspect={3}>
+                        <ResponsiveContainer width="99%" aspect={1}>
                             <PieChart
                                 margin={{
                                     top: 5, right: 30, left: 20, bottom: 5,
                                 }}>
-                                <Pie isAnimationActive={false} data={typeData} fill="#8884d8" nameKey={'type'} dataKey={'count'} label/>
+                                <Pie isAnimationActive={false} data={typeData} fill="#112A46" nameKey={'type'} dataKey={'count'} label/>
                                 <Tooltip/>
                             </PieChart>
                         </ResponsiveContainer>

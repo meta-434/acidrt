@@ -1,0 +1,9 @@
+.footer-div {
+    flex-direction: column;
+    background-color: #ACC8E5;
+    padding: 10px;
+}
+
+.footer-div > p {
+    font-size: x-small;
+}

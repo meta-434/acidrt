@@ -1,16 +1,36 @@
 nav {
     display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #ACC8E5;
+    padding: 10px;
+}
+
+h1 {
+    font-size: xx-large;
+}
+
+button {
+    background-color: #ACC8E5;
+    border-radius: 5px;
+    border: 2px solid #112A46;
+    margin: 0 2px 0 2px;
+}
+
+a {
+    text-decoration: none;
+    color: #112A46;
 }
 
 .title-header {
-    color: red;
-    margin-right:auto;
+    color: #112A46;
+
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 600px) {
     nav {
-        flex-direction: column;
-        text-align: center;
+        flex-direction: row;
+        text-align: left;
     }
 
     nav > * {

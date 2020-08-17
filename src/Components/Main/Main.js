@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+import './Main.css'
 
 export default class Main extends Component {
     render(){
         return(
             <main>
-                <p className="login-note"><em>For testing authorized user functionality, use:<br />username: acps-employee <br />password: ilovemywatershed</em></p>
-                <header role="banner">
-                    <h1>Albemarle County / Rivanna Stormwater</h1>
-                    <h2>Illicit Discharge Reporting</h2>
-                </header>
+                <section>
+                    <header role="banner">
+                        <p className="login-note"><em>For testing authorized user functionality, use:<br />username: acps-employee <br />password: ilovemywatershed</em></p>
+                        <h1>Albemarle County / Rivanna Stormwater</h1>
+                        <h2>Illicit Discharge Reporting</h2>
+                    </header>
+                </section>
                 <section>
                     <header>
                         <h3>Stormdrains are designed to handle stormwater runoff <em>only!</em></h3>

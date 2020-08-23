@@ -1,19 +1,21 @@
 body {
     margin: 0;
+    text-align: center;
 }
+
 #container {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding: 10px;
-    width: 50%;
-    height: 50%;
+    width: 300px;
+    height: 300px;
     background-color: #fff;
 }
 
 .charts {
-    display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
 }
 
 .dashboard-report-list {
@@ -22,8 +24,8 @@ body {
 }
 
 .chart1, .chart2 {
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
 }
 
 .chart1-wrapper, .chart2-wrapper {
@@ -31,30 +33,63 @@ body {
     height: 100%;
 }
 
-@media only screen and (max-width: 800px) {
+.dashboard-report-list {
+    width: 95%;
+}
+
+.marker-map {
+    margin-bottom: 15px;
+}
+
+.dashboard-report-list {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.marker-map {
+    width: 50vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media only screen and (min-width: 700px) {
 
     #container {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         padding: 10px;
-        width: 300px;
-        height: 300px;
+        width: 50%;
+        height: 50%;
         background-color: #fff;
     }
 
     .charts {
-        flex-direction: column;
-        align-items: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 
     .chart1, .chart2 {
-        width: 100%;
-        height: 100%;
+        width: 50%;
+        height: 50%;
     }
 
-    .chart1-wrapper, .chart2-wrapper {
-        width: 100%;
-        height: 100%;
+    .dashboard-report-list {
+        max-height: 75vw;
+        max-width: 30%;
+        overflow: scroll;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    .dashboard-report-list::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .dashboard-report-list {
+        max-width: 50%;
+        max-height: 45vw;
     }
 }

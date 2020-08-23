@@ -3,6 +3,7 @@ import ErrorDisplay from "../ErrorDisplay/ErrorDisplay";
 import MapComponent from "../Map/MapComponent";
 import AcidrtContext from "../../AcidrtContext";
 import {Link} from "react-router-dom";
+import './Form.css';
 
 function populateType (currTypeState) {
     if (!Array.isArray(currTypeState)) {

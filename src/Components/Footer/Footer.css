@@ -1,9 +1,18 @@
 .footer-div {
+    position: relative;
+    left: 0;
+    bottom: 0;
     flex-direction: column;
     background-color: #ACC8E5;
     padding: 10px;
+    max-height: 100px;
+    min-height: 100px;
 }
 
 .footer-div > p {
     font-size: x-small;
+}
+
+.footer-div > p > a {
+    text-decoration: underline;
 }

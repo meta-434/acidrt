@@ -9,10 +9,7 @@ export default class Dashboard extends Component {
 
     static contextType = AcidrtContext;
 
-    constructor() {
-        super();
-        this.state = {}
-    }
+    state={}
 
     componentDidMount = async () => {
         await this.context.handleGetReports();
@@ -135,12 +132,12 @@ export default class Dashboard extends Component {
                             <BarChart
                                 data={dateData}
                                 margin={{
-                                    top: 5, right: 30, left: 20, bottom: 5,
+                                    top: 5, right: 5, left: 5, bottom: 5,
                                 }}
                             >
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="month" interval={1} angle="45"/>
-                                <YAxis />
+                                <XAxis dataKey="month" interval={1} angle={45} tick={{ stroke: '#112A46', strokeWidth: 0.5}}/>
+                                <YAxis tick={{ stroke: '#112A46', strokeWidth: 0.5}}/>
                                 <Tooltip />
                                 <Legend />
                                 <Bar dataKey="count" fill="#112A46" />
@@ -151,12 +148,12 @@ export default class Dashboard extends Component {
                 <div className={'chart2'}>
                     <h3>Incident Types</h3>
                     <div className={'chart2-wrapper'}>
-                        <ResponsiveContainer width="99%" aspect={1}>
+                        <ResponsiveContainer width="99%" aspect={2}>
                             <PieChart
                                 margin={{
-                                    top: 5, right: 30, left: 20, bottom: 5,
+                                    top: 5, right: 5, left: 5, bottom: 5,
                                 }}>
-                                <Pie isAnimationActive={false} data={typeData} fill="#112A46" nameKey={'type'} dataKey={'count'} label/>
+                                <Pie isAnimationActive={false} data={typeData} fill="#112A46" nameKey={'type'} dataKey={'count'} animationEasing={'ease-in-out'} label/>
                                 <Tooltip/>
                             </PieChart>
                         </ResponsiveContainer>

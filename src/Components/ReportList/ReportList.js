@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import AcidrtContext from "../../AcidrtContext";
 import {Link} from "react-router-dom";
+import './ReportList.css';
 
 export default class ReportList extends Component {
 
     static contextType = AcidrtContext
+
+    componentDidMount = async () => {
+        await this.context.handleGetReports();
+        const reports = this.context.reports || [];
+
+        // callback can be replaced with one setState with all formatted data.
+        this.setState({reports})
+    }
 
     render(){
         const { reports } = this.context;

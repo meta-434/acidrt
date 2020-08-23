@@ -199,7 +199,7 @@ class App extends Component {
     return(
         <AcidrtContext.Provider value={(context)}>
             <div className="app">
-                <Route path="/" render={routeProps => <Nav {...routeProps} />}/>
+                <Nav />
                 <main className="app-content">
                     <Route exact path="/" render={props => <Main {...props} />}/>
                     <Route path="/login" render={props => <Login {...props} />} />

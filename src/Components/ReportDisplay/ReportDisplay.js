@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ErrorDisplay from "../ErrorDisplay/ErrorDisplay";
 import AcidrtContext from "../../AcidrtContext";
 import Form from "../Form/Form";
+import './ReportDisplay.css'
 
 export default class ReportDisplay extends Component {
 
@@ -51,22 +52,85 @@ export default class ReportDisplay extends Component {
                             <h2>Report Details</h2>
                         </section>
                         <section>
-                            <p>id: {rep.id}</p>
-                            <p>Report for incident at lat: {rep.report_lat} lng: {rep.report_lng}</p>
-                            <p>Report Submitted By: {rep.report_first + " " + rep.report_last}</p>
-                            <p>incident occurred on {rep.report_date} at {rep.report_time}</p>
-                            <div id={'incident-map'}>
-                                Incident Type(s):
-                                {
-                                    (rep.report_type.length > 1) ? (<p>{rep.report_type}</p>) : (<ul>{rep.report_type.map((el, idx) => <li key={idx}>{el}</li>)}</ul>)
-                                }
-
+                            <div className={'report-basics'}>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Basic Info</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>Report ID</td>
+                                        <td>{rep.id}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Submitter</td>
+                                        <td>{rep.report_last + ", " + rep.report_first}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Incident date</td>
+                                        <td>{rep.report_date}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Incident time</td>
+                                        <td>{rep.report_time}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Submitter email</td>
+                                        <td>{rep.report_email}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Submitter phone</td>
+                                        <td>{rep.report_phone}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div className={'report-details'}>
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Incident Info</th>
+                                        <th>Details</th>
+                                    </tr>
+                                    </thead>
+                                    <tr>
+                                        <td>Latitude</td><td>{parseInt(rep.report_lat)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Longitude</td><td>{parseInt(rep.report_lng, 10)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Incident Type(s):</td>
+                                        {
+                                            (rep.report_type.length > 1)
+                                                ? (
+                                                    <td>
+                                                        {rep.report_type}
+                                                    </td>)
+                                                : (
+                                                    <td>
+                                                        <ul>
+                                                            {rep.report_type.map((el, idx) => <li key={idx}>{el}</li>)}
+                                                        </ul>
+                                                    </td>)
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td>if other, describe type</td>
+                                        <td> {(rep.report_other !== 'undefined') ? (rep.report_other) : ('no -other- details given')}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{`Body of water affected: `}</td>
+                                        {(rep.report_waterbody) ? (<td>{rep.report_waterbody}</td>) : (<td>{`no body of water given`}</td>)}
+                                    </tr>
+                                    <tr>
+                                        <td>extra details, if any</td>
+                                        {(rep.report_details !== "undefined") ? (<td>{rep.report_details}</td>) : (<td>{'no extra details given'}</td>)}
+                                    </tr>
+                                </table>
                             </div>
 
-                            <p>if other, describe type: {(rep.report_other !== 'undefined') ? (rep.report_other) : ('no -other- details given')}</p>
-                            <p>{(rep.report_waterbody) ? ('Body of water affected: ' + rep.report_waterbody) : ('no body of water given')}</p>
-                            <p>Submitter Contact info: {rep.report_email}, {rep.report_phone}</p>
-                            <p>extra details, if any: {(rep.report_details !== "undefined") ? (rep.report_details) : ('no extra details given')}</p>
                             <button onClick={() => this.handleDelete(rep.id)}>Resolve (delete)</button>
                             <button onClick={this.toggleEdit}>Edit</button>
                         </section>
@@ -75,10 +139,9 @@ export default class ReportDisplay extends Component {
             } else {
                 return (
                     <div>
-                        <p>edit mode!!</p>
+                        <p><em>edit mode</em></p>
                         <Form defaultVals={this.state.uniqueReport} editMode={this.state.editMode} toggleEdit={() => this.toggleEdit()}/>
                     </div>
-
                 );
             }
 

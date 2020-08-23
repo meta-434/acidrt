@@ -72,27 +72,29 @@ exports[`renders the app landing page 1`] = `
     className="app-content"
   >
     <main>
-      <p
-        className="login-note"
-      >
-        <em>
-          For testing authorized user functionality, use:
-          <br />
-          username: acps-employee 
-          <br />
-          password: ilovemywatershed
-        </em>
-      </p>
-      <header
-        role="banner"
-      >
-        <h1>
-          Albemarle County / Rivanna Stormwater
-        </h1>
-        <h2>
-          Illicit Discharge Reporting
-        </h2>
-      </header>
+      <section>
+        <header
+          role="banner"
+        >
+          <p
+            className="login-note"
+          >
+            <em>
+              For testing authorized user functionality, use:
+              <br />
+              username: acps-employee 
+              <br />
+              password: ilovemywatershed
+            </em>
+          </p>
+          <h1>
+            Albemarle County / Rivanna Stormwater
+          </h1>
+          <h2>
+            Illicit Discharge Reporting
+          </h2>
+        </header>
+      </section>
       <section>
         <header>
           <h3>
@@ -183,5 +185,31 @@ exports[`renders the app landing page 1`] = `
       </section>
     </main>
   </main>
+  <div
+    className="footer-div"
+  >
+    <button>
+      <a
+        href="/"
+        onClick={[Function]}
+      >
+        Home
+      </a>
+    </button>
+    <p>
+      made by 
+      <a
+        href="http://alex-hapgood.info"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Alex Hapgood
+      </a>
+       for Albemarle County Facilities and Environmental Stewardship Department
+    </p>
+    <p>
+      updated 8/2020
+    </p>
+  </div>
 </div>
 `;

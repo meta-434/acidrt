@@ -1,68 +1,85 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ACIDRT
 
-## Available Scripts
+**_ACIDRT - Albemarle County Illicit Discharge Reporting Tool_**
 
-In the project directory, you can run:
+This is a reporting tool designed for members of the public to report illicit discharge (improper disposal
+of waste water). The tool also includes functionality for civil servants to access
+a dashboard displaying aggregated information at a glance, as well as all the reports
+submitted to that point, with the ability to edit and delete them.
 
-### `yarn start`
++ Server repo found [here](https://github.com/meta-434/acidrt-api)
++ Live site found [here](acidrt.alex-hapgood.info)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Concept
+The design of the tool is aimed around two user types - a member of the public intending to submit a report, 
+and an employee of the parks department to access the submitted reports.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Both users see the main page describing the details of illicit discharge and what constitutes a report-worthy
+sighting. From here, the member of the public may access the form page, where they can input information to identify
+themselves for future contact from the parks department, as well as information about the incident they wish to report, 
+including a map with a draggable pin to help field employees of the parks department precisely identify the incident in
+question.
 
-### `yarn test`
+The employee, upon login, is presented with a dashboard providing a quick rundown of the submitted reports, incuding
+a labeled pin-map of all incidents submitted, a freq/time bar chart, and an incident type breakdown chart, and the full
+list of reports for easy access when conferring with the map's pin labels.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+On selection of an incident, the employee is given the full details as submitted by the member of the public, as well
+as the ability to update the report, and delete it, should this be the case.
 
-### `yarn build`
+## Set up
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+set up the server, from `https://github.com/meta-434/acidrt-api`
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+1. Clone this repository to your local machine `git clone https://github.com/meta-434/acidrt.git`
+2. `cd` into the cloned repository
+4. Install the node dependencies `npm install`
+5. Edit the `.env` that will be ignored by git with `REACT_APP_SERVER_URL` equal to the address of the server
+6. For Maps functionality, a Google Maps API key needs to be added as well, under `REACT_APP_MAPS_KEY`. Note that the
+app does not need this to load, but there will be a major reduction in functionality.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Scripts
 
-### `yarn eject`
+Start the application `npm start`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Start nodemon for the application `npm run dev`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Run the tests `npm test`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Notes
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+to use a pre-made account without needing to sign up, use 
 
-## Learn More
+username: `acps-employee`
+<br />
+password: `ilovemywatershed`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+if nothing appears to happen when trying to use the app, wait 30-45 seconds for the hosted database to spin up.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Tech
 
-### Code Splitting
++ React
++ React-Router-Dom
++ Context API
++ [google-maps-react](https://www.npmjs.com/package/google-maps-react)
++ [recharts](https://www.npmjs.com/package/recharts)
++ CSS
++ Jest
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+# Screenshots
 
-### Analyzing the Bundle Size
+main:
+<br />
+![alt text]( src/images/main.png "main page")
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+form:
+<br />
+![alt text]( src/images/form.png "form page")
 
-### Making a Progressive Web App
+dashboard: 
+<br />
+![alt text]( src/images/dashboard.png "dashboard page")
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+report details: 
+<br />
+![alt text]( src/images/report_details.png "Report Details page")

@@ -8,7 +8,8 @@ class Nav extends Component {
 
     logOut = () => {
         this.context.handleLogOut();
-        this.props.history.push('/');
+        // this.props.history.push('/');
+        window.location.href = '/'
     }
 
     render() {

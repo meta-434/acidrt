@@ -23,7 +23,6 @@ class Login extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('CDU authToken: ', this.context.authToken)
         if (!!this.context.authToken) {
             this.context.clearError();
             this.props.history.push("/dashboard");
@@ -31,10 +30,10 @@ class Login extends Component {
     }
 
     handlePostSubmit = async (e) => {
-        console.log('login being used?')
         e.preventDefault();
         this.validateUsername(this.state.username);
         this.validatePassword(this.state.password);
+        this.setState({loading: true})
         await this.context.handlePostAuthenticate(this.state);
     }
 
@@ -117,6 +116,7 @@ class Login extends Component {
                             className='react-form'
                             onSubmit={this.handlePostSubmit}>
                             <label htmlFor='login-username'>username: </label>
+                            <br />
                             <input
                                 type="text"
                                 id="login-username"
@@ -128,7 +128,9 @@ class Login extends Component {
                                 aria-required="true"
                                 aria-describedby="error-box"
                             />
+                            <br />
                             <label htmlFor='login-password'>password: </label>
+                            <br />
                             <input
                                 type="password"
                                 id="login-password"
@@ -140,10 +142,11 @@ class Login extends Component {
                                 aria-required="true"
                                 aria-describedby="error-box"
                             />
+                            <br />
                             <button
                                 className="submit-button"
                                 type="submit"
-                                disabled={!this.state.usernameValid || !this.state.passwordValid }>
+                                disabled={!this.state.usernameValid || !this.state.passwordValid || this.state.loading}>
                                 Submit
                             </button>
                             <section className="error-box" id="error-box" aria-live="assertive">
@@ -151,6 +154,9 @@ class Login extends Component {
                                 <br />
                                 {this.state.password !== undefined && this.state.passwordValidation}
                             </section>
+                            <div>
+                                {this.state.loading ? `Loading...` : ''}
+                            </div>
                         </form>
                     </section>
                 </main>

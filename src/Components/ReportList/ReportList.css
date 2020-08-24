@@ -1,12 +1,12 @@
 .reportList-item > p > a {
-    border: 2px solid #112A46;
-    border-radius: 5px;
-    padding: 5px;
+  border: 2px solid #112a46;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .reportList-item {
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 5px 0 5px 0;
-    margin-bottom: 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px 0 5px 0;
+  margin-bottom: 10px;
 }

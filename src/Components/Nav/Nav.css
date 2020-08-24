@@ -1,41 +1,40 @@
 nav {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    background-color: #ACC8E5;
-    padding: 10px;
-    max-height: 250px;
-    min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: #acc8e5;
+  padding: 10px;
+  max-height: 250px;
+  min-height: 250px;
 }
 
 h1 {
-    font-size: xx-large;
+  font-size: xx-large;
 }
 
 button {
-    background-color: #ACC8E5;
-    border-radius: 5px;
-    border: 2px solid #112A46;
-    margin: 0 2px 0 2px;
+  background-color: #acc8e5;
+  border-radius: 5px;
+  border: 2px solid #112a46;
+  margin: 0 2px 0 2px;
 }
 
 a {
-    text-decoration: none;
-    color: #112A46;
+  text-decoration: none;
+  color: #112a46;
 }
 
 .title-header {
-    color: #112A46;
-
+  color: #112a46;
 }
 
 @media only screen and (min-width: 600px) {
-    nav {
-        flex-direction: row;
-        text-align: left;
-    }
+  nav {
+    flex-direction: row;
+    text-align: left;
+  }
 
-    nav > * {
-        margin: auto;
-    }
+  nav > * {
+    margin: auto;
+  }
 }

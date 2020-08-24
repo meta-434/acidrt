@@ -1,17 +1,18 @@
 table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    border: 1px solid #ddd;
-    margin: 5px;
-    padding: 5px;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid #ddd;
+  margin: 5px;
+  padding: 5px;
 }
 
-th, td {
-    text-align: left;
-    padding: 8px;
+th,
+td {
+  text-align: left;
+  padding: 8px;
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+  background-color: #dddddd;
 }

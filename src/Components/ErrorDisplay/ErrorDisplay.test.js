@@ -1,3 +1,1 @@
-test('ErrorDisplay Test',() => {
-
-})
+test("ErrorDisplay Test", () => {});

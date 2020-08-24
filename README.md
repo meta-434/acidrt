@@ -7,16 +7,17 @@ of waste water). The tool also includes functionality for civil servants to acce
 a dashboard displaying aggregated information at a glance, as well as all the reports
 submitted to that point, with the ability to edit and delete them.
 
-+ Server repo found [here](https://github.com/meta-434/acidrt-api)
-+ Live site found [here](acidrt.alex-hapgood.info)
+- Server repo found [here](https://github.com/meta-434/acidrt-api)
+- Live site found [here](acidrt.alex-hapgood.info)
 
 ## Concept
-The design of the tool is aimed around two user types - a member of the public intending to submit a report, 
+
+The design of the tool is aimed around two user types - a member of the public intending to submit a report,
 and an employee of the parks department to access the submitted reports.
 
 Both users see the main page describing the details of illicit discharge and what constitutes a report-worthy
 sighting. From here, the member of the public may access the form page, where they can input information to identify
-themselves for future contact from the parks department, as well as information about the incident they wish to report, 
+themselves for future contact from the parks department, as well as information about the incident they wish to report,
 including a map with a draggable pin to help field employees of the parks department precisely identify the incident in
 question.
 
@@ -33,10 +34,10 @@ set up the server, from `https://github.com/meta-434/acidrt-api`
 
 1. Clone this repository to your local machine `git clone https://github.com/meta-434/acidrt.git`
 2. `cd` into the cloned repository
-4. Install the node dependencies `npm install`
-5. Edit the `.env` that will be ignored by git with `REACT_APP_SERVER_URL` equal to the address of the server
-6. For Maps functionality, a Google Maps API key needs to be added as well, under `REACT_APP_MAPS_KEY`. Note that the
-app does not need this to load, but there will be a major reduction in functionality.
+3. Install the node dependencies `npm install`
+4. Edit the `.env` that will be ignored by git with `REACT_APP_SERVER_URL` equal to the address of the server
+5. For Maps functionality, a Google Maps API key needs to be added as well, under `REACT_APP_MAPS_KEY`. Note that the
+   app does not need this to load, but there will be a major reduction in functionality.
 
 ## Scripts
 
@@ -48,7 +49,7 @@ Run the tests `npm test`
 
 # Notes
 
-to use a pre-made account without needing to sign up, use 
+to use a pre-made account without needing to sign up, use
 
 username: `acps-employee`
 <br />
@@ -58,28 +59,28 @@ if nothing appears to happen when trying to use the app, wait 30-45 seconds for 
 
 # Tech
 
-+ React
-+ React-Router-Dom
-+ Context API
-+ [google-maps-react](https://www.npmjs.com/package/google-maps-react)
-+ [recharts](https://www.npmjs.com/package/recharts)
-+ CSS
-+ Jest
+- React
+- React-Router-Dom
+- Context API
+- [google-maps-react](https://www.npmjs.com/package/google-maps-react)
+- [recharts](https://www.npmjs.com/package/recharts)
+- CSS
+- Jest
 
 # Screenshots
 
 main:
 <br />
-![alt text]( src/images/main.png "main page")
+![alt text](src/images/main.png "main page")
 
 form:
 <br />
-![alt text]( src/images/form.png "form page")
+![alt text](src/images/form.png "form page")
 
-dashboard: 
+dashboard:
 <br />
-![alt text]( src/images/dashboard.png "dashboard page")
+![alt text](src/images/dashboard.png "dashboard page")
 
-report details: 
+report details:
 <br />
-![alt text]( src/images/report_details.png "Report Details page")
+![alt text](src/images/report_details.png "Report Details page")

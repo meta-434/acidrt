@@ -35,7 +35,8 @@ exports[`renders the app landing page 1`] = `
           <b>
             D
           </b>
-          ischarge 
+          ischarge
+           
           <b>
             R
           </b>
@@ -98,7 +99,8 @@ exports[`renders the app landing page 1`] = `
       <section>
         <header>
           <h3>
-            Stormdrains are designed to handle stormwater runoff 
+            Stormdrains are designed to handle stormwater runoff
+             
             <em>
               only!
             </em>
@@ -136,7 +138,7 @@ exports[`renders the app landing page 1`] = `
           </h3>
         </header>
         <p>
-          Proper disposal of common household chemicals and products is important to prevent pollution of our local waterways. Under no circumstances should anything be disposed of down a storm drain or directly into a local drainageway.  The following is a list of common sources of illicit discharges:
+          Proper disposal of common household chemicals and products is important to prevent pollution of our local waterways. Under no circumstances should anything be disposed of down a storm drain or directly into a local drainageway. The following is a list of common sources of illicit discharges:
         </p>
         <ul>
           <li>
@@ -162,7 +164,8 @@ exports[`renders the app landing page 1`] = `
       <section>
         <header>
           <h3>
-             What are Some Indications that an Illicit Discharge Has Occurred?
+             
+            What are Some Indications that an Illicit Discharge Has Occurred?
           </h3>
         </header>
         <ul>
@@ -197,7 +200,8 @@ exports[`renders the app landing page 1`] = `
       </a>
     </button>
     <p>
-      made by 
+      made by
+       
       <a
         href="http://alex-hapgood.info"
         rel="noopener noreferrer"
@@ -205,7 +209,8 @@ exports[`renders the app landing page 1`] = `
       >
         Alex Hapgood
       </a>
-       for Albemarle County Facilities and Environmental Stewardship Department
+       
+      for Albemarle County Facilities and Environmental Stewardship Department
     </p>
     <p>
       updated 8/2020
